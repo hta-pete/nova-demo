@@ -1,0 +1,316 @@
+	/* ––––––––––––––––––––––––––––––––––––––––––––––––
+
+	VIDEO PLAYER
+
+	–––––––––––––––––––––-–––––––––––––––––––––––––– */
+	@font-face {
+		font-family: 'icomoon';
+		src:  url('../webfonts/icomoon.eot?u5zu1h');
+		src:  url('../webfonts/icomoon.eot?u5zu1h#iefix') format('embedded-opentype'),
+		url('../webfonts/icomoon.ttf?u5zu1h') format('truetype'),
+		url('../webfonts/icomoon.woff?u5zu1h') format('woff'),
+		url('../webfonts/icomoon.svg?u5zu1h#icomoon') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	[class^="icon-"], [class*=" icon-"] {
+		font-family: 'icomoon' !important;
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	.icon-enlarge:before {
+		content: "\e98b";
+	}
+	.icon-shrink:before {
+		content: "\e98c";
+	}
+	.icon-play:before {
+		content: "\ea1c";
+	}
+	.icon-pause:before {
+		content: "\ea1d";
+	}
+	.icon-volume-high:before {
+		content: "\ea26";
+	}
+	.icon-volume-medium:before {
+		content: "\ea27";
+	}
+	.icon-volume-low:before {
+		content: "\ea28";
+	}
+	.icon-volume-mute:before {
+		content: "\ea2a";
+	}
+
+
+	/* hide the default Chrome video player styling */
+	video::-webkit-media-controls-overlay-enclosure {
+		display:none !important;
+	}
+	video::-webkit-media-controls-enclosure {
+		display:none !important;
+	}
+	video::-webkit-media-controls {
+		display:none !important;
+	}
+
+	.video-player{
+		position:relative;
+		width:100%;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		&.has-shadow{
+			box-shadow:0 20px 120px 0 rgba(0,0,0,0.6);
+		}
+		.thumbnail{
+			position:relative;
+			z-index:10;
+			background:$primary;
+			@include transition(all 0.8s $easeOutExpo);
+			&.hide{
+				@include opacity(0);
+			}
+		}
+		.video-play-btn{
+			z-index:20;
+			position:absolute;
+			width:90px;
+			height:90px;
+			background:$blue;
+			border-radius:100%;
+			@include transition(background 0.6s $easeOutExpo);
+			span{
+				display:block;
+				width: 0; 
+			  height: 0; 
+			  border-top: 15px solid transparent;
+			  border-bottom: 15px solid transparent;
+			  border-left: 20px solid rgba(255,255,255,1);
+			}
+			&:hover{
+				background:$blue_light;
+			}
+		}
+		video{
+			position:absolute;
+			z-index:2;
+			top:0;left:0;
+			width:100%;
+			filter: grayscale(0.4);
+			@include opacity(0);
+			@include transition(all 0.8s $easeOutExpo);
+			&.show{
+				@include opacity(1);
+			}
+		}
+		.video-controls{
+			position:absolute;
+			z-index:6;
+			bottom:0;left:0;
+			width:100%;
+			height:50px;
+			background: url('../img/video-controls-bg.png') repeat-x;
+			color:white;
+			@include opacity(0);
+			@include transition(all 0.8s $easeOutExpo);
+			&.show{
+				@include opacity(1);
+			}
+			&.hide{
+				@include opacity(0);
+			}
+			.video-controls-container{
+				position:relative;
+				width:100%;
+				height:100%;
+				padding:0 15px;
+			}
+			.controls-left{ 
+				height:50px;
+				flex-basis: 50px;
+				flex-shrink: 0; 
+			}
+			.controls-right{ 
+				height:50px;
+				flex-basis: 20px;
+				flex-shrink: 0;
+			}
+			.controls-center{
+				height:50px;
+				flex-grow: 1; 
+				padding:0 15px;
+			}
+			.toggle-btn{
+				display:inline-block;
+				font-size:16px;
+				width:20px;
+			}
+			input[type=range] {
+				-webkit-appearance: none; 
+				width: 100%; 
+				background: transparent; 
+			}
+
+			input[type=range]::-webkit-slider-thumb {
+				-webkit-appearance: none;
+			}
+
+			input[type=range]:focus {
+				outline: none; 
+			}
+
+			input[type=range]::-ms-track {
+				width: 100%;
+				cursor: pointer;
+				background: transparent; 
+				border-color: transparent;
+				color: transparent;
+			}
+			input[type=range]::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				cursor: pointer;
+				margin-left:2px;
+				width:8px;
+				height:8px;
+				background:white;
+				border-radius:100%;
+
+			}
+			input[type=range]::-moz-range-thumb {
+				cursor: pointer;
+				width:8px;
+				height:8px;
+				background:white;
+				border-radius:100%;
+			}
+			input[type=range]::-ms-thumb {
+				cursor: pointer;
+				width:8px;
+				height:8px;
+				background:white;
+				border-radius:100%;
+			}
+			.volume{
+				position:relative;
+				z-index:2;
+				display:inline-block;
+				font-size:16px;
+				width:20px;
+				margin-left:15px;
+				.volume-slider{
+					display:none;
+					position:absolute;
+					z-index:0;
+					bottom:0;
+					left:-7px;
+					width:30px;
+					height:120px;
+					.volume-slider-container{
+						position:relative;
+						width:30px;
+						height:90px;
+						margin:0px auto 0 auto;
+						background:$primary;
+						border-radius:3px;
+						.volume-track{
+							position:absolute;
+							z-index:2;
+							top:20px;
+							left:50%;
+							margin-left:-1px;
+							width:50px;
+							height:2px;
+							background:rgba(255,255,255,0.2);
+							transform-origin: 25px 25px;
+							@include transform(rotate(-90deg));
+						}
+						.volume-indicator{
+							position:absolute;
+							z-index:0;
+							bottom:20px;
+							left:50%;
+							margin-left:-1px;
+							width:2px;
+							height:25px;
+							background:white;
+						}
+					}
+				}
+				&:hover{
+					.volume-slider{
+						display:block;
+					}
+				}
+			}
+			.progress-bar{
+				background:#444;
+				position:relative;
+				display:inline-block;
+				flex-grow: 1;
+				height:12px;
+				background:#888;
+				.progress-fill{
+					position:absolute;
+					top:0;left:0;
+					width:0;
+					height:100%;
+					background:$blue_light;
+					&:after{
+						content:'';
+						display:none;
+						position:absolute;
+						top:-5px;
+						right:0;
+						width:14px;
+						height:14px;
+						background:$blue_light;
+						border-radius:100%;
+						cursor: pointer;
+					}
+				}
+				.progress-tooltip{
+					position:absolute;
+					top:-45px;
+					padding:10px 0;
+					width:70px;
+					text-align:center;
+					background:$primary;
+					color:white;
+					font-size:14px;
+					border-radius:3px;
+					@include opacity(0);
+					@include transition(opacity 0.6s $easeOutExpo);
+					&.show{
+						@include opacity(1);
+					}
+				}
+			}
+			.duration{
+				display:inline-block;
+				font-size:14px;
+				flex-basis: 50px;
+				flex-shrink: 0; 
+				margin-left:15px;
+			}
+			.fs_toggle{
+				display:inline-block;
+				cursor:pointer;
+				i{
+					font-size:16px;
+				}
+			}
+		}
+	}
