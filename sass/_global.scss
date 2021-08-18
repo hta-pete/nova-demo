@@ -2,11 +2,13 @@ body{
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight:400;
 	color:$primary;
+	min-width:1440px;
 }
 
 
 main{
 	//padding-top:90px;
+	min-width:1440px;
 }
 
 // HEADER
@@ -15,6 +17,7 @@ header{
 	z-index:999;
 	top:0;
 	width:100%;
+	min-width:1440px;
 	height:90px;
 	@include transition(all 0.8s $easeOutExpo);
 	&.active{
@@ -70,8 +73,8 @@ header{
 			color:white;
 		}
 		i{
-			font-size:14px;
-			vertical-align:1px;
+			font-size:20px;
+			vertical-align:-1px;
 			margin-right:3px;
 		}
 	}
@@ -220,8 +223,72 @@ nav#site-nav{
 
 // FOOTER
 footer{
-	height:600px;
 	background:$primary;
+	color:white;
+	border-bottom:4px solid $orange;
+	.footer-about{
+		max-width:400px;
+		//padding-right:90px !important;
+		img{
+			vertical-align:top;
+		}
+	}
+	.footer-inner{
+		display:table;
+		padding:120px 0 90px 0;
+		max-width:1600px;
+	}
+	.footer-inner_column{
+		display:table-cell;
+		padding:10px 60px;
+		border-right:1px solid rgba(255,255,255,0.15);
+		&:last-of-type{
+			border-right:none;
+		}
+	}
+	.footer-logo{
+		margin-bottom:15px;
+	}
+	p{
+		color:rgba(255,255,255,0.6);
+	}
+	h5{
+		font-size:25px;
+		margin-top:30px;
+		margin-bottom: 15px;
+		&:first-of-type{
+			margin-top:0;
+		}
+	}
+	li{
+		display:block;
+		font-size:16px;
+		line-height:1.2;
+		color:rgba(255,255,255,0.6);
+		margin-top:10px;
+	}
+	i{
+		width:20px;
+		text-align:center;
+		margin-right:3px;
+	}
+	.primary-btn{
+		margin-top:0;
+	}
+	.footer-social{
+		font-size:25px;
+		.fa-instagram{
+			font-size:28px;
+			vertical-align:-2px;
+			margin-left:2px;
+		}
+	}
+	.copyright{
+		max-width:1600px;
+		padding:0 60px;
+		margin-bottom:30px;
+		color:rgba(255,255,255,0.6);
+	}
 
 }
 
@@ -486,7 +553,7 @@ footer{
     	@include transition(all 1.2s (0.1s * $i) $easeOutExpo);
     }
   }
-	h3,h4,p,a{
+	h3,h4,p,a,.footer-inner_column{
 		@include opacity(0);
 	  @for $i from 1 through 20 {
 	    &:nth-child(#{$i}) {
@@ -504,7 +571,7 @@ footer{
 	&.show{
 		@include opacity(1);
 	  @include transform(translateY(0));
-	  h3,h4,p,a{
+	  h3,h4,p,a,.footer-inner_column{
 	  	@include opacity(1);
 	    @include transform(translateY(0));
 		}
@@ -535,6 +602,17 @@ footer{
   border-left: 30px solid transparent;
   border-right: 30px solid transparent;
   border-top: 30px solid #fff;
+}
+.arrow-up{
+	position:absolute;
+	bottom:-10px;
+	left:50%;
+	margin-left:-30px;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 30px solid $orange;
 }
 
 .ready-to-start{
